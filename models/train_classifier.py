@@ -122,7 +122,7 @@ def evaluate_model(model, X_test, Y_test, category_names):
     for i, column in enumerate(category_names):
     	y_pred = [x[i] for x in y_preds]
     	print(f'For category: {column}')
-    	print(classification_report(y_true = y_test[column], y_pred = y_pred))
+    	print(classification_report(y_true = Y_test[column], y_pred = y_pred))
 
 
 
