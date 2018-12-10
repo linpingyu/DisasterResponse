@@ -56,30 +56,6 @@ def tokenize(text):
     #lemmatize and remove stop words
     tokens = [lemmatizer.lemmatize(word) for word in tokens if word not in stop_words]
     return tokens
-
-# class StartingVerbExtractor(BaseEstimator, TransformerMixin):
-#     '''
-#     Extracts if the first tag is a verb
-#     '''
-
-#     def starting_verb(self, text):
-#         sentence_list = nltk.sent_tokenize(text)
-#         for sentence in sentence_list:
-#             pos_tags = nltk.pos_tag(tokenize(sentence))
-#             try:
-#                 first_word, first_tag = pos_tags[0]
-#                 if first_tag in ['VB', 'VBP'] or first_word == 'RT':
-#                     return True
-#             except:
-#                 continue
-#         return False
-
-#     def fit(self, x, y=None):
-#         return self
-
-#     def transform(self, X):
-#         X_tagged = pd.Series(X).apply(self.starting_verb)
-#         return pd.DataFrame(X_tagged)
     
 
 
@@ -102,10 +78,10 @@ def build_model():
 
     #grid search parameters
     parameters = {
-        # 'features__text_pipeline__vect__ngram_range': ((1, 1), (1, 2)),
-        # 'features__text_pipeline__vect__max_df': (0.5, 0.75, 1.0),
-        # 'features__text_pipeline__vect__max_features': (None, 5000, 10000),
-        # 'features__text_pipeline__tfidf__use_idf': (True, False)
+        'features__text_pipeline__vect__ngram_range': ((1, 1), (1, 2)),
+        'features__text_pipeline__vect__max_df': (0.5, 0.75, 1.0),
+        'features__text_pipeline__vect__max_features': (None, 5000, 10000),
+        'features__text_pipeline__tfidf__use_idf': (True, False)
     }
 
     #gridsearch crossvalidations
