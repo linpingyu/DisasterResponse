@@ -40,12 +40,13 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+	
 	'''
 	Tokenizes the text after removing punctuation, and stopwords
 	Returns: tokens from the text
 	'''
 
-    #init lemmatizer
+	#init lemmatizer
     lemmatizer = WordNetLemmatizer()
     stop_words = stopwords.words('english')
     # normalize case and remove punctuation
