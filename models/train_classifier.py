@@ -40,7 +40,6 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
-
 	'''
 	Tokenizes the text after removing punctuation, and stopwords
 	Returns: tokens from the text
@@ -95,11 +94,12 @@ def build_model():
     				('tfidf', TfidfTransformer())
     				])
     			),
-    			('starting_verb', StartingVerbExtractor()),
+    			('starting_verb', StartingVerbExtractor())
     		])
     	),
     	('clf', MultiOutputClassifier(estimator=RandomForestClassifier()))
     ])
+	
     #grid search parameters
     parameters = {
         'features__text_pipeline__vect__ngram_range': ((1, 1), (1, 2)),
@@ -107,6 +107,7 @@ def build_model():
         'features__text_pipeline__vect__max_features': (None, 5000, 10000),
         'features__text_pipeline__tfidf__use_idf': (True, False)
     }
+	
     #gridsearch crossvalidations
     cv = GridSearchCV(pipeline, param_grid=parameters, verbose=2, n_jobs=4)
     return cv
