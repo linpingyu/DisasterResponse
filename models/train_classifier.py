@@ -31,7 +31,7 @@ def load_data(database_filepath):
 		Y: target labels
 		category_names: target categories
 	'''
-	engine = create_engine('sqlite:///DisasterResponse.db')
+	engine = create_engine('sqlite:///' + database_filepath)
 	df = pd.read_sql_table('disasterCleaned', con=engine)
 	X = df.message
 	Y = df.drop(['id', 'message', 'original', 'genre'], axis=1)
@@ -105,14 +105,7 @@ def build_model():
         'features__text_pipeline__vect__ngram_range': ((1, 1), (1, 2)),
         'features__text_pipeline__vect__max_df': (0.5, 0.75, 1.0),
         'features__text_pipeline__vect__max_features': (None, 5000, 10000),
-        'features__text_pipeline__tfidf__use_idf': (True, False),
-        'clf__n_estimators': [50, 100, 200],
-        'clf__min_samples_split': [2, 3, 4],
-        'features__transformer_weights': (
-            {'text_pipeline': 1, 'starting_verb': 0.5},
-            {'text_pipeline': 0.5, 'starting_verb': 1},
-            {'text_pipeline': 0.8, 'starting_verb': 1},
-        )
+        'features__text_pipeline__tfidf__use_idf': (True, False)
     }
     #gridsearch crossvalidations
     cv = GridSearchCV(pipeline, param_grid=parameters, verbose=2, n_jobs=4)
